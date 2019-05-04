@@ -9,13 +9,15 @@ class App extends React.Component {
   }
 
   componentDidMount(){
-    SpotifyAPI.get(`?q=glass&type=track&offset=5`)
+    console.log(SpotifyAPI);
+    /*
+    SpotifyAPI.get(`&q=glass&type=track&offset=5`)
       .then(response => this.setState({tracks: response.data.tracks.items}))
       .catch(err => console.error(err));
+      */
   }
 
   render(){
-    console.log(this.state.tracks);
     return (
       <div className="App">
         <header className="App-header">
