@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.scss';
 import SpotifyAPI from './apis/SpotifyAPI';
+const search = SpotifyAPI();
 
 class App extends React.Component {
   constructor(props) {
@@ -9,12 +10,9 @@ class App extends React.Component {
   }
 
   componentDidMount(){
-    console.log(SpotifyAPI);
-    /*
-    SpotifyAPI.get(`&q=glass&type=track&offset=5`)
+    search.get(`?q=glass`)
       .then(response => this.setState({tracks: response.data.tracks.items}))
       .catch(err => console.error(err));
-      */
   }
 
   render(){
@@ -33,6 +31,11 @@ class App extends React.Component {
             Learn React
           </a>
         </header>
+        <ul>
+          {this.state.tracks.map(track => {
+            return <li key={track.id}>{track.name}</li>
+          })}
+        </ul>
       </div>
     );
   }
