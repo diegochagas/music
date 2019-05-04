@@ -8,10 +8,6 @@ const SpotifyAPI = () => {
   const ACCESS_TOKEN = getToken();
   return axios.create({
     baseURL: "https://api.spotify.com/v1/search",
-    params: {
-      type: "track",
-      offset: 5
-    },
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/json",
