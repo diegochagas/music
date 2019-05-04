@@ -1,8 +1,8 @@
 import SpotifyAPI from './apis/SpotifyAPI';
 
-export const FETCH_ARTIST = "FETCH_ARTIST";
-export const FETCH_ALBUM = "FETCH_ALBUM";
-export const FETCH_TRACK = "FETCH_TRACK";
+export const FETCH_ARTISTS = "FETCH_ARTISTS";
+export const FETCH_ALBUMS = "FETCH_ALBUMS";
+export const FETCH_TRACKS = "FETCH_TRACKS";
 
 export const fetchArtists = searchTerm => async dispatch => {
   const response = await SpotifyAPI().get(`?q=${searchTerm}`, {
@@ -10,7 +10,7 @@ export const fetchArtists = searchTerm => async dispatch => {
       type: "artist"
     }
   });
-  dispatch({artists: response.data.artists.items});
+  dispatch({type: FETCH_ARTISTS, payload: response.data.artists.items});
 }
 
 export const fetchAlbums = searchTerm => async dispatch => {
@@ -19,7 +19,7 @@ export const fetchAlbums = searchTerm => async dispatch => {
       type: "album"
     }
   });
-  dispatch({albums: response.data.albums.items});
+  dispatch({type: FETCH_ALBUMS, payload: response.data.albums.items});
 }
 
 export const fetchTracks = searchTerm => async dispatch => {
@@ -28,5 +28,5 @@ export const fetchTracks = searchTerm => async dispatch => {
       type: "track"
     }
   });
-  dispatch({tracks: response.data.tracks.items});
+  dispatch({type: FETCH_TRACKS, payload: response.data.tracks.items});
 }
