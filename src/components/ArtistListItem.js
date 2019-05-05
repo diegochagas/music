@@ -1,6 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import ArtistLatestAlbums from './ArtistLatestAlbums';
+import { fetchLatestAlbums } from '../actions';
+import './ArtistListItem.scss';
 
-export default class ArtistListItem extends React.Component {
+class ArtistListItem extends React.Component {
+  componentDidMount() {
+    this.props.fetchLatestAlbums(this.props.item.id);
+  }
+
   render () {
     const { images, name, genres, popularity } = this.props.item;
     return (
@@ -9,6 +17,7 @@ export default class ArtistListItem extends React.Component {
         <span>{name}</span>
         <div>{this.renderGenres(genres)}</div>
         <span>{this.renderPopularity(popularity)}</span>
+        <ArtistLatestAlbums albums={this.props.albums} />
       </div>
     );
   }
@@ -29,3 +38,9 @@ export default class ArtistListItem extends React.Component {
     }
   }
 }
+
+const mapStateToProps = state => {
+  return { albums: state.artistLatestAlbums };
+}
+
+export default connect(mapStateToProps, { fetchLatestAlbums })(ArtistListItem);
