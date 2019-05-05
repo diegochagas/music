@@ -1,6 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { fetchAlbumTracks } from '../actions';
+import AlbumTracks from './AlbumTracks';
 
-export default class AlbumListItem extends React.Component {
+class AlbumListItem extends React.Component {
+  componentDidMount() {
+    this.props.fetchAlbumTracks(this.props.item.id);
+  }
+
   render() {
     const { images, name, artists, available_markets } = this.props.item;
     return(
@@ -9,6 +16,7 @@ export default class AlbumListItem extends React.Component {
         <span>{name}</span>
         <div>{this.renderArtists(artists)}</div>
         <div>{this.renderAvailability(available_markets)}</div>
+        <AlbumTracks tracks={this.props.tracks} />
       </div>
     );
   }
@@ -24,10 +32,16 @@ export default class AlbumListItem extends React.Component {
     if (artists.length > 1) {
       spanText = "Various artists";
     }
-    return (<span className="available-market">{spanText}</span>);
+    return <span className="available-market">{spanText}</span>;
   }
 
   renderAvailability = availableMarkets => {
-    return availableMarkets.map(market => <span key={market}>{market}</span>);
+    return availableMarkets.map(market => <span key={market}>{market}, </span>);
   }
 }
+
+const mapStateToProps = state => {
+  return { tracks: state.albumTracks };
+}
+
+export default connect(mapStateToProps, { fetchAlbumTracks })(AlbumListItem);
