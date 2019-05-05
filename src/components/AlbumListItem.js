@@ -7,7 +7,8 @@ export default class AlbumListItem extends React.Component {
       <div className="album-list-item">
         <img src={images.length ? images[0].url: ""} alt="Album folder" />
         <span>{name}</span>
-        {this.renderArtists(artists)}
+        <div>{this.renderArtists(artists)}</div>
+        <div>{this.renderAvailability(available_markets)}</div>
       </div>
     );
   }
@@ -27,6 +28,6 @@ export default class AlbumListItem extends React.Component {
   }
 
   renderAvailability = availableMarkets => {
-    return availableMarkets.reduce()
+    return availableMarkets.map(market => <span key={market}>{market}</span>);
   }
 }
