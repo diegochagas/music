@@ -1,8 +1,7 @@
 import axios from 'axios';
 const authorizeURL = "https://accounts.spotify.com/authorize";
 const CLIENT_ID = "70358d9ae7f84e6a83754104c6a91319";
-const localURL = "http://localhost:3000";
-// const productionURL = "https://diegochagas.github.io/music";
+const ACTUAL_URL = `${window.location.protocol}//${window.location.host}`;
 
 const SpotifyAPI = () => {
   const ACCESS_TOKEN = getToken();
@@ -23,7 +22,7 @@ const getToken = () => {
     const hash = hashs.find(hash => hash.access_token !== undefined);
     return hash.access_token;
   }
-  window.location = `${authorizeURL}?response_type=token&client_id=${CLIENT_ID}&redirect_uri=${localURL}`;
+  window.location = `${authorizeURL}?response_type=token&client_id=${CLIENT_ID}&redirect_uri=${ACTUAL_URL}`;
 }
 
 const getHashParams = hash => {
