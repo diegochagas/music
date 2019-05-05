@@ -27,7 +27,7 @@ class SearchBar extends React.Component {
     } else {
       switch (selectValue) {
         case TYPE_ARTISTS:
-          this.props.fetchArtists(searchTerm);
+        this.props.fetchArtists(searchTerm);
           break;
         case TYPE_ALBUMS:
           this.props.fetchAlbums(searchTerm);
@@ -36,19 +36,11 @@ class SearchBar extends React.Component {
           this.props.fetchTracks(searchTerm);
           break;
         default:
-          alert('Select value');
+          alert('Select type value');
           break;
       }
     }
   }
 }
 
-const mapStateToProps = state => {
-  return {artists: state.artists.items, albums: state.albums.items, tracks: state.tracks.items};
-}
-
-export default connect(mapStateToProps, {
-  fetchArtists,
-  fetchAlbums,
-  fetchTracks 
-})(SearchBar);
+export default connect(null, { fetchArtists, fetchAlbums, fetchTracks })(SearchBar);
