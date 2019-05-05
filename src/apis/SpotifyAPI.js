@@ -6,7 +6,7 @@ const ACTUAL_URL = `${window.location.protocol}//${window.location.host}`;
 const SpotifyAPI = () => {
   const ACCESS_TOKEN = getToken();
   return axios.create({
-    baseURL: "https://api.spotify.com/v1/search",
+    baseURL: "https://api.spotify.com/v1",
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/json",
