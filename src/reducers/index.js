@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { TYPE_ARTISTS,  TYPE_ALBUMS, TYPE_TRACKS, FETCH_LATEST_ALBUMS, FETCH_ALBUM_TRACKS } from '../actions';
+import { TYPE_ARTISTS,  TYPE_ALBUMS, TYPE_TRACKS, FETCH_LATEST_ALBUMS, FETCH_ALBUM_TRACKS, FETCH_IS_FAVORITE } from '../actions';
 
 const artistsReducer = (state = [], action) => {
   switch (action.type) {
@@ -46,10 +46,21 @@ const albumTracksReducer = (state = [], action) => {
   }
 }
 
+const favoritesReducer = (state = [], action) => { 
+  switch (action.type) {
+    case FETCH_IS_FAVORITE:
+    //console.log(action.payload);
+    return action.payload;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   artists: artistsReducer,
   albums: albumsReducer,
   tracks: tracksReducer,
   artistLatestAlbums: latestArtistAlbumsReducer,
-  albumTracks: albumTracksReducer
+  albumTracks: albumTracksReducer,
+  favorites: favoritesReducer
 });

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import ArtistLatestAlbums from './ArtistLatestAlbums';
 import { fetchLatestAlbums } from '../actions';
 import './ArtistListItem.scss';
+import FavoriteItems from './FavoriteItems';
 
 class ArtistListItem extends React.Component {
   componentDidMount() {
@@ -10,7 +11,7 @@ class ArtistListItem extends React.Component {
   }
 
   render () {
-    const { images, name, genres, popularity } = this.props.item;
+    const { id, images, name, genres, popularity } = this.props.item;
     return (
       <div className="artist-list-item">
         <img src={images.length ? images[0].url : ""} alt="Song" />
@@ -18,6 +19,7 @@ class ArtistListItem extends React.Component {
         <div>{this.renderGenres(genres)}</div>
         <span>{this.renderPopularity(popularity)}</span>
         <ArtistLatestAlbums albums={this.props.albums} />
+        <FavoriteItems itemId={id} />
       </div>
     );
   }

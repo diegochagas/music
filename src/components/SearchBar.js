@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchArtists, fetchAlbums, fetchTracks, TYPE_ARTISTS, TYPE_ALBUMS, TYPE_TRACKS } from '../actions';
+import './SearchBar.scss';
 
 class SearchBar extends React.Component {
   render(){

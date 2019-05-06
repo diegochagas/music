@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchAlbumTracks } from '../actions';
 import AlbumTracks from './AlbumTracks';
+import FavoriteItems from './FavoriteItems';
 
 class AlbumListItem extends React.Component {
   componentDidMount() {
@@ -9,7 +10,7 @@ class AlbumListItem extends React.Component {
   }
 
   render() {
-    const { images, name, artists, available_markets } = this.props.item;
+    const { id, images, name, artists, available_markets } = this.props.item;
     return(
       <div className="album-list-item">
         <img src={images.length ? images[0].url: ""} alt="Album folder" />
@@ -17,6 +18,7 @@ class AlbumListItem extends React.Component {
         <div>{this.renderArtists(artists)}</div>
         <div>{this.renderAvailability(available_markets)}</div>
         <AlbumTracks tracks={this.props.tracks} />
+        <FavoriteItems itemId={id} />
       </div>
     );
   }

@@ -1,8 +1,9 @@
 import React from 'react';
+import FavoriteItems from './FavoriteItems';
 
 export default class TrackListItem extends React.Component {
   render() {
-    const { name, artists, duration_ms } = this.props.item;
+    const { id, name, artists, duration_ms } = this.props.item;
     const { images, albumName } = this.props.item.album;
     return(
       <div className="track-list-item">
@@ -11,6 +12,7 @@ export default class TrackListItem extends React.Component {
         <div>{this.renderArtists(artists)}</div>
         <span>{albumName}</span>
         <span>{duration_ms}</span>
+        <FavoriteItems itemId={id} />
       </div>
     );
   }
