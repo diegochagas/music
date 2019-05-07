@@ -1,6 +1,7 @@
 import React from 'react';
 import FavoriteItems from './FavoriteItems';
 import './TrackListItem.scss';
+import noImage from '../images/noimage.jpg';
 
 export default class TrackListItem extends React.Component {
   render() {
@@ -8,7 +9,7 @@ export default class TrackListItem extends React.Component {
     const { images, albumName } = this.props.item.album;
     return(
       <div className="track-list-item">
-        <img className="album-image" src={images.length ? images[0].url : "" } alt="Album folder" />
+        <img className="album-image" src={images.length ? images[0].url : noImage} alt="Album folder" />
           <span>{name}</span>
           <div>{this.renderArtists(artists)}</div>
           <span>{albumName}</span>

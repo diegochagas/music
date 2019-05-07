@@ -4,6 +4,7 @@ import { fetchAlbumTracks } from '../actions';
 import AlbumTracks from './AlbumTracks';
 import FavoriteItems from './FavoriteItems';
 import './AlbumListItem.scss';
+import noImage from '../images/noimage.jpg';
 
 class AlbumListItem extends React.Component {
   componentDidMount() {
@@ -14,7 +15,7 @@ class AlbumListItem extends React.Component {
     const { id, images, name, artists, available_markets } = this.props.item;
     return(
       <div className="album-list-item">
-        <img className="album-image" src={images.length ? images[0].url: ""} alt="Album folder" />
+        <img className="album-image" src={images.length ? images[0].url : noImage} alt="Album folder" />
         <div className="description">
           <span>Name: {name}</span>
           <div>Artist(s): {this.renderArtists(artists)}</div>
