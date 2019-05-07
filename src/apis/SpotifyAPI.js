@@ -1,7 +1,8 @@
 import axios from 'axios';
 const authorizeURL = "https://accounts.spotify.com/authorize";
 const CLIENT_ID = "70358d9ae7f84e6a83754104c6a91319";
-const ACTUAL_URL = `${window.location.protocol}//${window.location.host}`;
+const href = window.location.href;
+const ACTUAL_URL = href.substr(0, href.length-1);
 
 const SpotifyAPI = () => {
   const ACCESS_TOKEN = getToken();
