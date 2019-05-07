@@ -1,10 +1,19 @@
-let favorites = [];
+// let favorites = [];
 
+export const updateFavorite = id => {
+  const favorite = localStorage.getItem(id);
+  if (favorite === null) {
+    localStorage.setItem(id, "false");
+    return false;
+  }
+  const isFavorite = Boolean(favorite);
+  localStorage.setItem(id, `"${!isFavorite}"`);
+  return isFavorite;
+}
+/*
 export const addFavorite = id => {
-  const newFavorite = getFavorite(id);
   const isFavorite = (newFavorite !== null ) ? newFavorite.isFavorite : false;
-  const stringFavorite = `{"id": "${id}", "isFavorite": ${isFavorite + ""}}`;
-  console.log(stringFavorite);
+  const stringFavorite = `{"id": "${id}", "isFavorite": ${isFavorite}}`;
   localStorage.setItem(id, stringFavorite);
   updateFavoritesList(id);
   const hasFavorite = favorites.some(favorite => favorite.id === id);
@@ -15,7 +24,7 @@ export const addFavorite = id => {
 
 export const changeFavoriteStatus = id => {
   const newFavorite = getFavorite(id);
-  const stringFavorite = `{"id": "${id}", "isFavorite": ${!newFavorite.isFavorite + ""}}`;
+  const stringFavorite = `{"id": "${id}", "isFavorite": ${!newFavorite.isFavorite}}`;
   localStorage.setItem(id, stringFavorite);
   addFavorite(id); 
 }
@@ -31,12 +40,8 @@ const updateFavoritesList = id => {
   favorites = updatedFavorites;
 }
 
-export const getFavorite = id => {
-  const stringFavorite = localStorage.getItem(id)
-  console.log(stringFavorite);
-  const favorite = JSON.parse(stringFavorite);
-  favorite.isFavorite = Boolean(favorite.isFavorite);
-  return favorite;
-}
+export const getFavorite = id => JSON.parse();
 
 export const getAllFavorites = () => favorites;
+
+*/

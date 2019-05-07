@@ -1,55 +1,45 @@
-import SpotifyAPI from '../apis/SpotifyAPI';
-import { addFavorite, changeFavoriteStatus, getAllFavorites } from '../apis/FavoriteAPI';
+import SpotifyAPI, { renewToken } from '../apis/SpotifyAPI';
+import { updateFavorite } from '../apis/FavoriteAPI';
 export const TYPE_ARTISTS = "artist";
 export const TYPE_ALBUMS = "album";
 export const TYPE_TRACKS = "track";
 export const FETCH_LATEST_ALBUMS = "FETCH_LATEST_ALBUMS";
 export const FETCH_ALBUM_TRACKS = "FETCH_ALBUM_TRACKS";
 export const FETCH_IS_FAVORITE = "FETCH_IS_FAVORITE";
+export const FETCH_SEARCH_TERM_TYPE = "FETCH_SEARCH_TERM_TYPE";
 
 export const fetchArtists = searchTerm => async dispatch => {
   const response = await SpotifyAPI().get(`/search`, { 
-    params: { 
-      q: searchTerm,
-      type: TYPE_ARTISTS 
-    } 
+    params: { q: searchTerm, type: TYPE_ARTISTS } 
   });
-  const items = response.data.artists.items;
-  items.forEach(item => addFavorite(item.id, false));
-  dispatch({type: TYPE_ARTISTS, payload: items});
+  dispatch({type: TYPE_ARTISTS, payload: response.data.artists.items});
 }
 
 export const fetchAlbums = searchTerm => async dispatch => {
-  const response = await SpotifyAPI().get(`/search`, { 
-    params: { 
-      q: searchTerm,
-      type: TYPE_ALBUMS 
-    } 
-  });
-  const items = response.data.albums.items.map(item => {
-    item.isFavorite = this.isFavorite(item.id);
-    return item;
-  });
-  dispatch({type: TYPE_ALBUMS, payload: items});
+  try {
+    const response = await SpotifyAPI().get(`/search`, { 
+      params: { q: searchTerm, type: TYPE_ALBUMS } 
+    });
+    dispatch({type: TYPE_ALBUMS, payload: response.data.albums.items});
+  } catch ( err ) {
+    renewToken (err.response.data.error.status);
+  }
 }
 
 export const fetchTracks = searchTerm => async dispatch => {
   const response = await SpotifyAPI().get(`/search`, { 
-    params: { 
-      q: searchTerm,
-      type: TYPE_TRACKS 
-    } 
+    params: { q: searchTerm, type: TYPE_TRACKS } 
   });
-  const items = response.data.tracks.items.map(item => {
-    item.isFavorite = this.isFavorite(item.id);
-    return item;
-  });
-  dispatch({type: TYPE_TRACKS, payload: items});
+  dispatch({type: TYPE_TRACKS, payload: response.data.tracks.items});
 }
 
 export const fetchLatestAlbums = id => async dispatch => {
-  const response = await SpotifyAPI().get(`/artists/${id}/albums`);
-  dispatch({type: FETCH_LATEST_ALBUMS, payload: response.data.items});
+  try {
+    const response = await SpotifyAPI().get(`/artists/${id}/albums`);
+    dispatch({type: FETCH_LATEST_ALBUMS, payload: response.data.items});
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 export const fetchAlbumTracks = id => async dispatch => {
@@ -58,7 +48,9 @@ export const fetchAlbumTracks = id => async dispatch => {
 }
 
 export const fetchIsFavorite = id => {
-  changeFavoriteStatus(id);
-  console.log(getAllFavorites());
-  return { type: FETCH_IS_FAVORITE, payload: getAllFavorites() };
+  return { type: FETCH_IS_FAVORITE, payload: updateFavorite(id) };
+}
+
+export const fetchSearchTermType = termType => {
+  return { type: FETCH_SEARCH_TERM_TYPE, payload: termType };
 }

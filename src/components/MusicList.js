@@ -15,24 +15,32 @@ class MusicList extends React.Component {
   renderMusicList = ({artists, albums, tracks}) => {
     let items = [];
     let type = "";
-    if (artists.length) {
-      items = artists;
-      type = TYPE_ARTISTS;
-    } 
-    if (albums.length) {
-      items = albums;
-      type = TYPE_ALBUMS;
-    } 
-    if (tracks.length) {
-      items = tracks;
-      type = TYPE_TRACKS;
+    switch (this.props.searchTermType) {
+      case TYPE_ARTISTS:
+        items = artists;
+        type = TYPE_ARTISTS;
+        break
+      case TYPE_ALBUMS: 
+        items = albums;
+        type = TYPE_ALBUMS;
+        break;
+      case TYPE_TRACKS:
+        items = tracks;
+        type = TYPE_TRACKS;
+        break;
+      default:
+        return (
+          <div className="loading">
+            <span>Search for an artist, album or track</span>
+          </div>
+        );
     }
     return items.map(item => <MusicListItem key={item.id} item={item} type={type} />);
   }
 }
 
 const mapStateToProps = state => {
-  return { artists: state.artists, albums: state.albums, tracks: state.tracks };
+  return { artists: state.artists, albums: state.albums, tracks: state.tracks, searchTermType: state.searchTermType };
 }
 
 export default connect(mapStateToProps)(MusicList);

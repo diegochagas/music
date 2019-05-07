@@ -1,11 +1,16 @@
 import React from 'react';
 
 export default class ArtistLatestAlbums extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { active: false }
+  }
+
   render() {
     return(
-      <div className="artist-latest-albums">
+      <div className="artist-latest-albums" onClick={this.toggleClass}>
         <h4>Artist's latest albums</h4>
-        <ul className="albums-list">
+        <ul className={`albums-list ${this.state.active ? "" : "hide"}`} >
           {this.props.albums.map(album => {
             const { images, name } = album;
             return (
@@ -19,4 +24,7 @@ export default class ArtistLatestAlbums extends React.Component {
       </div>
     );
   }
+
+  toggleClass = () => this.setState({active: !this.state.active});
+
 }

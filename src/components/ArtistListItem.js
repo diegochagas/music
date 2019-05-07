@@ -4,6 +4,7 @@ import ArtistLatestAlbums from './ArtistLatestAlbums';
 import { fetchLatestAlbums } from '../actions';
 import './ArtistListItem.scss';
 import FavoriteItems from './FavoriteItems';
+import noImage from '../images/noimage.jpg';
 
 class ArtistListItem extends React.Component {
   componentDidMount() {
@@ -14,12 +15,14 @@ class ArtistListItem extends React.Component {
     const { id, images, name, genres, popularity } = this.props.item;
     return (
       <div className="artist-list-item">
-        <img src={images.length ? images[0].url : ""} alt="Song" />
-        <span>{name}</span>
-        <div>{this.renderGenres(genres)}</div>
-        <span>{this.renderPopularity(popularity)}</span>
+        <img className="album-image" src={images.length ? images[0].url : noImage} alt="Song" />
+        <div className="description">
+          <span>Name: {name}</span>
+          <div>Genres: {this.renderGenres(genres)}</div>
+          <span>Popularity: {this.renderPopularity(popularity)}</span>
+          <FavoriteItems itemId={id} />
+        </div>
         <ArtistLatestAlbums albums={this.props.albums} />
-        <FavoriteItems itemId={id} />
       </div>
     );
   }

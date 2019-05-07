@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchAlbumTracks } from '../actions';
 import AlbumTracks from './AlbumTracks';
 import FavoriteItems from './FavoriteItems';
+import './AlbumListItem.scss';
 
 class AlbumListItem extends React.Component {
   componentDidMount() {
@@ -13,12 +14,14 @@ class AlbumListItem extends React.Component {
     const { id, images, name, artists, available_markets } = this.props.item;
     return(
       <div className="album-list-item">
-        <img src={images.length ? images[0].url: ""} alt="Album folder" />
-        <span>{name}</span>
-        <div>{this.renderArtists(artists)}</div>
-        <div>{this.renderAvailability(available_markets)}</div>
+        <img className="album-image" src={images.length ? images[0].url: ""} alt="Album folder" />
+        <div className="description">
+          <span>Name: {name}</span>
+          <div>Artist(s): {this.renderArtists(artists)}</div>
+          <div className="availability">Availability: {this.renderAvailability(available_markets)}</div>
+          <FavoriteItems itemId={id} />
+        </div>
         <AlbumTracks tracks={this.props.tracks} />
-        <FavoriteItems itemId={id} />
       </div>
     );
   }

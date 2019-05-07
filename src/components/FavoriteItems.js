@@ -4,11 +4,15 @@ import { connect } from 'react-redux';
 import { fetchIsFavorite } from '../actions';
 
 class FavoriteItems extends React.Component {
-  
+
+  componentDidMount() {
+    this.props.fetchIsFavorite(this.props.itemId);
+  }
+
   render(){
-    console.log(this.props);
     return(
       <div className="FavoriteItems">
+        <span>Favorite: </span>
         <i className={`${this.props.isFavorite ? "fas" : "far"} fa-star`} onClick={this.onFavoriteClick}></i>
       </div>
     );
@@ -20,9 +24,8 @@ class FavoriteItems extends React.Component {
   
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const isFavorite = state.favorites.find(favorite => favorite.itemId === ownProps.id);
-  return { iFavorite: isFavorite };
+const mapStateToProps = state => {
+  return { iFavorite: state.isFavorite };
 }
 
 export default connect(mapStateToProps, { fetchIsFavorite })(FavoriteItems);

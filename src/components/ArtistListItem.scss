@@ -1,8 +1,18 @@
+  
+.albums-list {
 
-.artist-latest-albums .folder {
-  width: 25px;
+  .album {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .folder {
+      width: 25px;
+    }
+    
+    .name {
+      font-size: 12px;
+      }
+  }
 }
 
-.artist-latest-albums .name {
-  font-size: 12px;
-}

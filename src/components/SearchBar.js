@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchArtists, fetchAlbums, fetchTracks, TYPE_ARTISTS, TYPE_ALBUMS, TYPE_TRACKS } from '../actions';
+import { fetchArtists, fetchAlbums, fetchTracks, fetchSearchTermType, TYPE_ARTISTS, TYPE_ALBUMS, TYPE_TRACKS } from '../actions';
 import './SearchBar.scss';
 
 class SearchBar extends React.Component {
@@ -22,6 +22,7 @@ class SearchBar extends React.Component {
   onSearchTermSubmit = event => {
     event.preventDefault();
     const selectValue = this.refs.selectType.value;
+    this.props.fetchSearchTermType(selectValue);
     const searchTerm = this.refs.searchTerm.value;
     if(searchTerm === '') {
       alert('Type a serch term');
@@ -44,4 +45,8 @@ class SearchBar extends React.Component {
   }
 }
 
-export default connect(null, { fetchArtists, fetchAlbums, fetchTracks })(SearchBar);
+const mapStateToProps = state => {
+  return { searchTermType: state.searchTermType };
+}
+
+export default connect(mapStateToProps, { fetchArtists, fetchAlbums, fetchTracks, fetchSearchTermType  })(SearchBar);
