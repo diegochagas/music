@@ -2,12 +2,8 @@
 
 export const updateFavorite = id => {
   const favorite = localStorage.getItem(id);
-  if (favorite === null) {
-    localStorage.setItem(id, "false");
-    return false;
-  }
-  const isFavorite = Boolean(favorite);
-  localStorage.setItem(id, `"${!isFavorite}"`);
+  const isFavorite = favorite === "true" ? true : false;
+  localStorage.setItem(id, (!isFavorite).toString());
   return isFavorite;
 }
 /*

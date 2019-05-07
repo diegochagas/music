@@ -18,14 +18,14 @@ class FavoriteItems extends React.Component {
     );
   }
 
-  onFavoriteClick = event => {
+  onFavoriteClick = () => {
     this.props.fetchIsFavorite(this.props.itemId);
   }
   
 }
 
 const mapStateToProps = state => {
-  return { iFavorite: state.isFavorite };
+  return { isFavorite: state.isFavorite };
 }
 
 export default connect(mapStateToProps, { fetchIsFavorite })(FavoriteItems);
