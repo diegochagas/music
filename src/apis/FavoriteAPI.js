@@ -1,7 +1,12 @@
+const favorites = [];
+
+export const getFavorites = () => favorites;
+
 export const updateFavorite = id => {
   const isFavorite = getFavorite(id);
   const newFavoriteStatus = changeFavoriteStatus(id, isFavorite);
-  return {id: id, isFavorite: newFavoriteStatus};
+  const favorite = {id: id, isFavorite: newFavoriteStatus};
+  favorites.push(favorite);
 }
 
 const getFavorite = id => {
@@ -14,3 +19,5 @@ const changeFavoriteStatus = (id, isFavorite) => {
   localStorage.setItem(id, (favoriteStatus).toString());
   return favoriteStatus;
 }
+
+

@@ -1,11 +1,11 @@
 import SpotifyAPI, { renewToken } from '../apis/SpotifyAPI';
-import { updateFavorite } from '../apis/FavoriteAPI';
+import { getFavorites } from '../apis/FavoriteAPI';
 export const TYPE_ARTISTS = "artist";
 export const TYPE_ALBUMS = "album";
 export const TYPE_TRACKS = "track";
 export const FETCH_LATEST_ALBUMS = "FETCH_LATEST_ALBUMS";
 export const FETCH_ALBUM_TRACKS = "FETCH_ALBUM_TRACKS";
-export const FETCH_IS_FAVORITE = "FETCH_IS_FAVORITE";
+export const FETCH_FAVORITES = "FETCH_FAVORITES";
 export const FETCH_SEARCH_TERM_TYPE = "FETCH_SEARCH_TERM_TYPE";
 
 export const fetchArtists = searchTerm => async dispatch => {
@@ -47,8 +47,8 @@ export const fetchAlbumTracks = id => async dispatch => {
   dispatch({type: FETCH_ALBUM_TRACKS, payload: response.data.items});
 }
 
-export const fetchIsFavorite = id => {
-  return { type: FETCH_IS_FAVORITE, payload: updateFavorite(id) };
+export const fetchFavorites = () => {
+  return { type: FETCH_IS_FAVORITE, payload: getFavorites() };
 }
 
 export const fetchSearchTermType = termType => {
