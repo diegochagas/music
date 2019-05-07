@@ -46,7 +46,7 @@ const albumTracksReducer = (state = [], action) => {
   }
 }
 
-const favoritesReducer = (state = [], action) => { 
+const favoriteReducer = (state = [], action) => { 
   switch (action.type) {
     case FETCH_IS_FAVORITE:
       return action.payload;
@@ -70,6 +70,6 @@ export default combineReducers({
   tracks: tracksReducer,
   artistLatestAlbums: latestArtistAlbumsReducer,
   albumTracks: albumTracksReducer,
-  isFavorite: favoritesReducer,
+  favorite: favoriteReducer,
   searchTermType: searchTermTypeReducer
 });

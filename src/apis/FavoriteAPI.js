@@ -4,7 +4,7 @@ export const updateFavorite = id => {
   const favorite = localStorage.getItem(id);
   const isFavorite = favorite === "true" ? true : false;
   localStorage.setItem(id, (!isFavorite).toString());
-  return isFavorite;
+  return {id: id, isFavorite};
 }
 /*
 export const addFavorite = id => {

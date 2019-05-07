@@ -10,10 +10,11 @@ class FavoriteItems extends React.Component {
   }
 
   render(){
+    const { id, isFavorite } = this.props.favorite;
     return(
       <div className="FavoriteItems">
         <span>Favorite: </span>
-        <i className={`${this.props.isFavorite ? "fas" : "far"} fa-star`} onClick={this.onFavoriteClick}></i>
+        <i className={`${isFavorite && (this.props.itemId === id) ? "fas" : "far"} fa-star`} onClick={this.onFavoriteClick}></i>
       </div>
     );
   }
@@ -25,7 +26,7 @@ class FavoriteItems extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return { isFavorite: state.isFavorite };
+  return { favorite: state.favorite };
 }
 
 export default connect(mapStateToProps, { fetchIsFavorite })(FavoriteItems);
