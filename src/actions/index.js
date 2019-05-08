@@ -9,10 +9,14 @@ export const FETCH_FAVORITES = "FETCH_FAVORITES";
 export const FETCH_SEARCH_TERM_TYPE = "FETCH_SEARCH_TERM_TYPE";
 
 export const fetchArtists = searchTerm => async dispatch => {
-  const response = await SpotifyAPI().get(`/search`, { 
-    params: { q: searchTerm, type: TYPE_ARTISTS } 
-  });
-  dispatch({type: TYPE_ARTISTS, payload: response.data.artists.items});
+  try {
+    const response = await SpotifyAPI().get(`/search`, { 
+      params: { q: searchTerm, type: TYPE_ARTISTS } 
+    }); 
+    dispatch({type: TYPE_ARTISTS, payload: response.data.artists.items});
+  } catch ( err ) {
+    renewToken (err.response.data.error.status);
+  }
 }
 
 export const fetchAlbums = searchTerm => async dispatch => {
@@ -27,24 +31,32 @@ export const fetchAlbums = searchTerm => async dispatch => {
 }
 
 export const fetchTracks = searchTerm => async dispatch => {
-  const response = await SpotifyAPI().get(`/search`, { 
-    params: { q: searchTerm, type: TYPE_TRACKS } 
-  });
-  dispatch({type: TYPE_TRACKS, payload: response.data.tracks.items});
+  try {
+    const response = await SpotifyAPI().get(`/search`, { 
+      params: { q: searchTerm, type: TYPE_TRACKS } 
+    });
+    dispatch({type: TYPE_TRACKS, payload: response.data.tracks.items});
+  } catch ( err ) {
+    renewToken (err.response.data.error.status);
+  }
 }
 
 export const fetchLatestAlbums = id => async dispatch => {
   try {
     const response = await SpotifyAPI().get(`/artists/${id}/albums`);
     dispatch({type: FETCH_LATEST_ALBUMS, payload: response.data.items});
-  } catch (err) {
-    console.log(err);
+  } catch ( err ) {
+    renewToken (err.response.data.error.status);
   }
 }
 
 export const fetchAlbumTracks = id => async dispatch => {
-  const response = await SpotifyAPI().get(`/albums/${id}/tracks`);
-  dispatch({type: FETCH_ALBUM_TRACKS, payload: response.data.items});
+  try {
+    const response = await SpotifyAPI().get(`/albums/${id}/tracks`);
+    dispatch({type: FETCH_ALBUM_TRACKS, payload: response.data.items});
+  } catch ( err ) {
+    renewToken (err.response.data.error.status);
+  }
 }
 
 export const fetchFavorites = () => {
