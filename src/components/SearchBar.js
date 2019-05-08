@@ -2,8 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchArtists, fetchAlbums, fetchTracks, fetchSearchTermType, TYPE_ARTISTS, TYPE_ALBUMS, TYPE_TRACKS } from '../actions';
 import './SearchBar.scss';
+const SEARCH_TERM = "SEARCH_TERM";
+const TYPE = "TYPE";
 
 class SearchBar extends React.Component {
+  componentDidMount() {
+    const searchTerm = localStorage.getItem(SEARCH_TERM);
+    const type = localStorage.getItem(TYPE);
+    if (searchTerm !== null && type !== null && window.location.hash !== "") {
+      this.executeSearch(searchTerm, type);
+    }
+  }
+
   render(){
     return(
       <form className="search-bar" onSubmit={this.onSearchTermSubmit}>
@@ -24,17 +34,24 @@ class SearchBar extends React.Component {
     const selectValue = this.refs.selectType.value;
     this.props.fetchSearchTermType(selectValue);
     const searchTerm = this.refs.searchTerm.value;
+    this.executeSearch(searchTerm, selectValue);
+  }
+
+  executeSearch = (searchTerm, type) => {
     if(searchTerm === '') {
       alert('Type a serch term');
     } else {
-      switch (selectValue) {
+      switch (type) {
         case TYPE_ARTISTS:
-        this.props.fetchArtists(searchTerm);
+          this.storeSearchParams(searchTerm, type);
+          this.props.fetchArtists(searchTerm);
           break;
         case TYPE_ALBUMS:
+          this.storeSearchParams(searchTerm, type);
           this.props.fetchAlbums(searchTerm);
           break;
         case TYPE_TRACKS:
+          this.storeSearchParams(searchTerm, type);
           this.props.fetchTracks(searchTerm);
           break;
         default:
@@ -42,6 +59,11 @@ class SearchBar extends React.Component {
           break;
       }
     }
+  }
+
+  storeSearchParams = (searchTerm, type) => {
+    localStorage.setItem(SEARCH_TERM, searchTerm);
+    localStorage.setItem(TYPE, type);
   }
 }
 

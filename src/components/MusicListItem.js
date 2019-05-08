@@ -6,7 +6,7 @@ import AlbumListItem from './AlbumListItem';
 import TrackListItem from './TrackListItem';
 
 class MusicListItem extends React.Component {
-  render () {
+  render () {console.log("searching...");
     return (
       <li className="music-list-item">
         {this.selectListItem()}
