@@ -6,7 +6,7 @@ const SEARCH_TERM = "SEARCH_TERM";
 const TYPE = "TYPE";
 
 class SearchBar extends React.Component {
-  componentDidMount() {
+  componentDidMount() { 
     const searchTerm = localStorage.getItem(SEARCH_TERM);
     const type = localStorage.getItem(TYPE);
     if (searchTerm !== null && type !== null && window.location.hash !== "") {
@@ -32,12 +32,12 @@ class SearchBar extends React.Component {
   onSearchTermSubmit = event => {
     event.preventDefault();
     const selectValue = this.refs.selectType.value;
-    this.props.fetchSearchTermType(selectValue);
     const searchTerm = this.refs.searchTerm.value;
     this.executeSearch(searchTerm, selectValue);
   }
-
+  
   executeSearch = (searchTerm, type) => {
+    this.props.fetchSearchTermType(type);
     if(searchTerm === '') {
       alert('Type a serch term');
     } else {
