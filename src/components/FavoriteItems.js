@@ -7,11 +7,13 @@ import { updateFavorite } from '../apis/FavoriteAPI';
 class FavoriteItems extends React.Component {
 
   componentDidMount() {
+    updateFavorite(this.props.itemId);
     this.props.fetchFavorites();
   }
 
   render(){
-    const favorite = this.props.favorites.find(favorite => favorite.id === this.props.itemId);
+    const getFavorite = this.props.favorites.find(favorite => favorite.id === this.props.itemId);
+    const favorite = getFavorite === undefined ? false : getFavorite;
     return(
       <div className="FavoriteItems">
         <span>Favorite: </span>

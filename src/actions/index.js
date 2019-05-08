@@ -48,7 +48,8 @@ export const fetchAlbumTracks = id => async dispatch => {
 }
 
 export const fetchFavorites = () => {
-  return { type: FETCH_IS_FAVORITE, payload: getFavorites() };
+  const response = getFavorites()
+  return { type: FETCH_FAVORITES, payload: response };
 }
 
 export const fetchSearchTermType = termType => {
