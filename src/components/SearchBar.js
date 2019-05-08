@@ -32,12 +32,12 @@ class SearchBar extends React.Component {
   onSearchTermSubmit = event => {
     event.preventDefault();
     const selectValue = this.refs.selectType.value;
-    this.props.fetchSearchTermType(selectValue);
-    const searchTerm = this.refs.searchTerm.value;
     this.executeSearch(searchTerm, selectValue);
   }
 
   executeSearch = (searchTerm, type) => {
+    this.props.fetchSearchTermType(selectValue);
+    const searchTerm = this.refs.searchTerm.value;
     if(searchTerm === '') {
       alert('Type a serch term');
     } else {
