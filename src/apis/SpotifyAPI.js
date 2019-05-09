@@ -38,11 +38,9 @@ const getHashParams = hash => {
   });
 }
 
-export const renewToken = status => {
-  if ( status === 401 ) {
-    window.location.hash = "";
-    getToken();
-  }
+export const renewToken = () => {
+  window.location.hash = "";
+  getToken();
 }
 
 export default SpotifyAPI;

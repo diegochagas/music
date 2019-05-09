@@ -9,7 +9,7 @@ export default class ArtistLatestAlbums extends React.Component {
   render() {
     return(
       <div className="artist-latest-albums" onClick={this.toggleClass}>
-        <h4>Artist's latest albums</h4>
+        <button>Artist's latest albums</button>
         <ul className={`albums-list ${this.state.active ? "" : "hide"}`} >
           {this.props.albums.map(album => {
             const { images, name } = album;

@@ -15,7 +15,7 @@ export const fetchArtists = searchTerm => async dispatch => {
     }); 
     dispatch({type: TYPE_ARTISTS, payload: response.data.artists.items});
   } catch ( err ) {
-    renewToken (err.response.data.error.status);
+    renewToken ();
   }
 }
 
@@ -26,7 +26,7 @@ export const fetchAlbums = searchTerm => async dispatch => {
     });
     dispatch({type: TYPE_ALBUMS, payload: response.data.albums.items});
   } catch ( err ) {
-    renewToken (err.response.data.error.status);
+    renewToken ();
   }
 }
 
@@ -37,7 +37,7 @@ export const fetchTracks = searchTerm => async dispatch => {
     });
     dispatch({type: TYPE_TRACKS, payload: response.data.tracks.items});
   } catch ( err ) {
-    renewToken (err.response.data.error.status);
+    renewToken ();
   }
 }
 
@@ -46,7 +46,7 @@ export const fetchLatestAlbums = id => async dispatch => {
     const response = await SpotifyAPI().get(`/artists/${id}/albums`);
     dispatch({type: FETCH_LATEST_ALBUMS, payload: response.data.items});
   } catch ( err ) {
-    renewToken (err.response.data.error.status);
+    renewToken ();
   }
 }
 
@@ -55,7 +55,7 @@ export const fetchAlbumTracks = id => async dispatch => {
     const response = await SpotifyAPI().get(`/albums/${id}/tracks`);
     dispatch({type: FETCH_ALBUM_TRACKS, payload: response.data.items});
   } catch ( err ) {
-    renewToken (err.response.data.error.status);
+    renewToken ();
   }
 }
 

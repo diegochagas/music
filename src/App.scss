@@ -17,3 +17,20 @@ ul {
 li {
   list-style: none;
 }
+
+input {
+  border-radius: 20px;
+  padding: 5px;
+  margin: 20px;
+}
+
+select,
+button {
+  color: white;
+  border: 1px solid lightsalmon;
+  background-color: lightcoral;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin: 20px;
+  font-weight: bold;
+}

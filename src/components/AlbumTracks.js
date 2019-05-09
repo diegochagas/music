@@ -9,7 +9,7 @@ export default class AlbumTracks extends React.Component {
   render() {
     return(
       <div className={`album-tracks ${this.state.active ? "spread": ""}`} onClick={this.toggleClass}>
-        <h4>Tracks</h4>
+        <button>Tracks</button>
         <ul className={`tracks ${this.state.active ? "" : "hide"}`}>
           {this.props.tracks.map(track => {
             return (
